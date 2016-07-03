@@ -1,5 +1,5 @@
 ---
-title: "haha"
+title: "R Markdown"
 author: "haha"
 date: "2016年6月30日"
 output: html_document

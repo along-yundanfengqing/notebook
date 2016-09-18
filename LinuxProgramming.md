@@ -23,16 +23,49 @@
 
 
 ##gdb命令
-*	start
-*	step单步执行命令
-*	disassemble反汇编当前函数
-*	si一条**指令**一条指令单步调试
-*	bt查看每层栈帧上的参数
-*	frame查看每层栈帧上的局部变量
-*	info registers显示所有寄存器的当前值
-*	p $esp打印esp寄存器的值(表示寄存器名称时，前面加上$，esp寄存器指向保存函数栈帧的栈空间栈顶)
-*	break	设置断点
+调试的基本思想：分析现象，假设错误原因，产生新现象去验证假设。
+###执行和跟踪
+*	list	列出指定函数或者行源代码
+*	start	执行程序至main函数停止。
+*	step	单步执行命令，有函数**进入函数**。
+*	next	执行向下继续执行命令。
+*	disassemble		反汇编当前函数
+*	si		一条**指令**一条指令单步调试
+*	bt		查看函数栈帧(backtrace)
+*	frame *n*		选择栈帧
+*	info 
+	*	registers	显示所有寄存器的当前值
+	*	locals	显示**当前栈帧**局部变量的值
+	*	breakpoints	显示设置的断点
+	*	watchpoints	显示观察点
+*	p $esp	打印esp寄存器的值(表示寄存器名称时，前面加上$，esp寄存器指向保存函数栈帧的栈空间栈顶)
+*	finish	运行至当前函数返回，停下来等待命令。
+*	set 
+	*	val	设置变量
+
+*	print	后面跟表达式，除打印变量值，也可以修改变量值。
+*	quit	退出
+
+###断点（执行到某一代码行时中断）
+断点加单步是使用调试器基本方法。
+
+*	break	设置断点breakpoint，函数名或者行号。
 *	watch	设置观察点
+*	display	每次停下来的时候都显示某个变量的值。
+*	undisplay	取消跟踪显示。
+*	disable breakpoints *n*	禁用断点
+*	enable breakpoints *n*	禁用断点
+*	delete breakpoints *n*	删除断点
+*	continue	连续运行直至断点
+*	run	从头开始连续运行
+*	break...if...	设置条件断点
+###观察点（访问某个存储单元时中断）
+*	x/7b	x命令打印指定存储单元内容，7b为打印格式，b每个字节一组。
+
+###段错误
+
+
+
 
 
 ##gcc
@@ -43,7 +76,7 @@
 *	-lc	链接libc库（默认选项，可不写）
 *	-dynamic-linker	指定动态链接器
 *	-v	编译详细信息
-*	-g	产生调试信息。
+*	-g	产生调试信息。并不是把源代码嵌入到可执行文件中，调试仍需源文件。
 	>Produce debugging information in the operating system's native format(stabs).GDB can work with this debugging information.
 	>
 	>使用`objdump`反汇编时可以把C代码和汇编代码穿插起来显示。
